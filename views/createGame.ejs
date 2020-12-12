@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/stylesheets/functions.js"></script>
+  </head>
+  <body>
+    <div id="mainDiv">
+        <h1 id="mainTitle">Create new Game</h1>
+        <label>Name</label>
+        <input></input>
+        <label>Player Count</label>
+        <input type="range" min="2" max="6" value="4" oninput="this.nextElementSibling.value = this.value"> 
+        <output>2</output>
+        <label>Start Budget</label>
+        <input type="range" min="5" max="30" value="15" onchange="updateStartBudget(this.value);"> 
+        <div> <output id="budgetOutput">5</output> <label>Million</label> </div>
+        <div id="buttonDiv">
+            <button>Create Game</button>
+        </div>
+    </div>
+
+  </body>
+</html>

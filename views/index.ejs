@@ -5,9 +5,14 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <button>Create Game</button>
-    <button>Join Game</button>
+      <div id="mainDiv">
+        <h1 id="mainTitle"><%= title %></h1>
+        <div id="buttonDiv">
+          <form action="/createNewGame" method = "post"></form>
+            <button onclick="window.location='/createGame'">Create Game</button>
+          </form>
+          <button>Join Game</button>
+        </div>
+      </div>
   </body>
 </html>
