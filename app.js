@@ -8,6 +8,7 @@ var sassMiddleware = require('node-sass-middleware');
 
 var indexRouter = require('./routes/index');
 var createGameRouter = require('./routes/createGame');
+var joinGameRouter = require('./routes/joinGame');
 var usersRouter = require('./routes/users');
 
 var app = express();
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/createGame', createGameRouter);
+app.use('/joinGame', joinGameRouter);
 
 app.post("/postGame", function(req, res){
   const MongoClient = require('mongodb').MongoClient;
@@ -42,6 +44,7 @@ app.post("/postGame", function(req, res){
       client.close();
     });
   });
+  res.sendStatus(200);
 });
 
 // catch 404 and forward to error handler

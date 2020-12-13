@@ -29,6 +29,7 @@ function postGame(){
     .then(function(response) {
       if(response.ok) {
         console.log('Click was recorded');
+        window.location='/joinGame';
         return;
       }
       throw new Error('Request failed.');
@@ -36,5 +37,4 @@ function postGame(){
     .catch(function(error) {
       console.log(error);
     });
-    window.location='/';
 }

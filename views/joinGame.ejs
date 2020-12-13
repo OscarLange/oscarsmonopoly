@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+      <div id="mainDiv">
+        <h1 id="mainTitle"><%= title %></h1>
+      </div>
+      <div id="bodyDiv">
+        <% games.forEach(function(game){ %>
+            <div>
+            <label><%= game.name %></label>
+            <div>
+                <label>Bank</label>
+                <button>Join Game</button>
+                <% Object.keys(game["players"]).forEach(function(playername){ %>
+                    <label><%= playername %></label>
+                    <button>Join Game</button>
+                <% }); %>
+            </div>
+            </div>
+        <% }); %>
+      </div>
+  </body>
+</html>
