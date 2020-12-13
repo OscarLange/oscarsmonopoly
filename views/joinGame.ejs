@@ -10,9 +10,9 @@
       </div>
       <div id="bodyDiv">
         <% games.forEach(function(game){ %>
-            <div>
-            <label><%= game.name %></label>
-            <div>
+            <div class="outerDiv">
+            <h2><%= game.name %></h2>
+            <div class="innerDiv">
                 <label>Bank</label>
                 <button>Join Game</button>
                 <% Object.keys(game["players"]).forEach(function(playername){ %>
