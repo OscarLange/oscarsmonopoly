@@ -3,6 +3,7 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/stylesheets/functions.js"></script>
   </head>
   <body>
       <div id="mainDiv">
@@ -11,15 +12,27 @@
       <div id="bodyDiv">
         <% games.forEach(function(game){ %>
             <div class="outerDiv">
-            <h2><%= game.name %></h2>
-            <div class="innerDiv">
-                <label>Bank</label>
-                <button>Join Game</button>
-                <% Object.keys(game["players"]).forEach(function(playername){ %>
-                    <label><%= playername %></label>
-                    <button>Join Game</button>
-                <% }); %>
-            </div>
+                <h2><%= game.name %></h2>
+                <div class="innerDiv">
+                    <div>
+                        <% if (game.bank === 0) { %>
+                            <button class="button" onclick="joinBank(this.nextElementSibling.value)" >Join as Bank</button>
+                            <input type="hidden" value= <%= game.id %> >
+                        <% } else { %>
+                            <button class="disabledButton">Join as Bank</button>
+                        <% } %>
+                        <label><%= game.bank %> / 1 Bank</label>
+                    </div>
+                    <div>
+                        <% if (game.player < game.playercount) { %>
+                            <button class="button" onclick="joinPlayer(this.nextElementSibling.value)">Join as Player</button>
+                            <input type="hidden" value= <%= game.id %> >
+                        <% } else { %>
+                            <button class="disabledButton">Join as Player</button>
+                        <% } %>
+                        <label><%= game.player %> / <%= game.playercount %> Player</label>
+                    </div>
+                </div>
             </div>
         <% }); %>
       </div>

@@ -8,9 +8,25 @@ router.get('/', function(req, res, next) {
     const client = new MongoClient(uri, { useNewUrlParser: true });
     client.connect(err => {
         const collection = client.db("monopoly").collection("games");
-        collection.find({}).toArray(function(err, result) {
+        collection.find({}).toArray(function(err, results) {
             if (err) throw err;
-            res.render('joinGame', { title: "Join Game", games: result});
+            const playerCount = [];
+            results.forEach(result => {
+                let bank = 0;
+                let player = 0;
+                const playercount = Object.keys(result["players"]).length - 1;
+                Object.keys(result["players"]).forEach(key => {
+                    if(result["players"][key]["id"].length >= 1){
+                        if(key === "bank"){
+                            bank++;
+                        } else {
+                            player++;
+                        }
+                    }
+                });
+                playerCount.push({"id" : result._id, "name": result.name, "bank": bank, "player": player, "playercount": playercount});
+            });
+            res.render('joinGame', { title: "Join Game", games: playerCount});
             client.close();
           });
     });

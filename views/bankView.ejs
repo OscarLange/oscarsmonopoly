@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/stylesheets/functions.js"></script>
+  </head>
+  <body>
+    <div class="outerDiv">
+        <h1 id="Name"><%= title %></h1>
+        <h1 id="Budget">Budget: <%= budget %></h1>
+        <input id="gameId" type="hidden" value= <%= gameid %> >
+        <input id="selfId" type="hidden" value= <%= selfid %> >
+        <input id="budgetField" type="hidden" value= <%= budget %> >
+    </div>
+    <% if (auction === 0) { %>
+        <div class="outerDiv">
+            <h1 id="startAuction">Start Auction</h1>
+            <div>
+                <label>minAmount</label>
+                <input id="minAmount" type="number">
+            </div>
+            <% otherPlayers.forEach(function(player){ %>
+                <button class="button" onclick="startAuction(this.nextElementSibling.value, document.getElementById('minAmount').value)">Start Auction with <%= player %></button>
+                <input type="hidden" value= <%= player %> >
+            <% }); %>
+        </div>
+    <% } else { %>
+        <div class="outerDiv">
+        <h1 id="closeAuction">Close Auction</h1>
+        <button class="button" onclick="closeAuction()">Compare Bets</button>  
+    </div>
+    <% } %>
+    <div class="outerDiv">
+        <h1 id="sendStartMoney">Walk over Start</h1>
+        <% otherPlayers.forEach(function(player){ %>
+            <button class="button" onclick="sendMoney(this.nextElementSibling.value, 2000000)">Send to <%= player %></button>
+            <input type="hidden" value= <%= player %> >
+        <% }); %>
+    </div>
+    <div class="outerDiv">
+        <h1 id="sendBudgetMoney">Collect Budget</h1>
+        <% otherPlayers.forEach(function(player){ %>
+            <button class="button" onclick="transferMoney(this.nextElementSibling.value, document.getElementById('budgetField').value)" >Send to <%= player %></button>
+            <input type="hidden" value= <%= player %> >
+        <% }); %>
+    </div>
+    <div class="outerDiv">
+        <h1 id="sendMoney">Send Money</h1>
+        <div>
+            <label>Amount</label>
+            <input id="sendAmount" type="number">
+        </div>
+        <% otherPlayers.forEach(function(player){ %>
+            <button class="button" onclick="sendMoney(this.nextElementSibling.value, document.getElementById('sendAmount').value)">Send to <%= player %></button>
+            <input type="hidden" value= <%= player %> >
+        <% }); %>
+    </div>
+  </body>
+</html>
