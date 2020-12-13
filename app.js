@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+var bodyParser = require('body-parser');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -16,9 +17,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
@@ -31,6 +31,18 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/createGame', createGameRouter);
 
+app.post("/postGame", function(req, res){
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = process.env.MONGODB_URI;
+  const client = new MongoClient(uri, { useNewUrlParser: true });
+  client.connect(err => {
+    const collection = client.db("monopoly").collection("games");
+    collection.insertOne(req.body, function(err, result) {
+      if (err) throw err;
+      client.close();
+    });
+  });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
