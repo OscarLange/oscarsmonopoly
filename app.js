@@ -165,7 +165,7 @@ app.post("/postAuction", function(req, res){
     let o_id = new mongo.ObjectID(req.body.gameid);
     gamescollection.findOne({"_id": o_id}, function(err, game) {
       const id = game["players"][req.body.playerName]["id"];
-      gamescollection.updateOne({"_id": o_id}, { $set: { "auction": Number(req.body.money), "auctionStarter": id }});
+      gamescollection.updateOne({"_id": o_id}, { $set: { "auction": Number(req.body.money), "auctionStarter": id, "winner": "" }});
     });
     res.sendStatus(200);
   });
@@ -203,9 +203,15 @@ app.post("/closeAuction", function(req, res){
         best -= (best*0,1);
       }
       best = best * (-1);
+      game["winner"] = winner;
+      gamescollection.replaceOne({"_id": o_id}, game, function(err, result2) {
+        if (err) throw err;
+        console.log("1 document updated");
+        client.close();
+        res.status(200);
+      });
       o_id = new mongo.ObjectID(winner);
       playercollection.updateOne({"_id": o_id}, { $inc: { "budget": best }});
-      res.status(200).send(winner);
     });
   });
 });

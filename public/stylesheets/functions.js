@@ -11,6 +11,7 @@ function postGame(){
     "budget": startbudget*1000000,
     "auction": 0,
     "auctionStarter": "",
+    "winner": "",
     "players" : {}
   }
 

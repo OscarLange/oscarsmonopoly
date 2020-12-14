@@ -9,6 +9,11 @@
     <div class="outerDiv">
         <h1 id="Name"><%= title %></h1>
         <h1 id="Budget">Budget: <%= budget %></h1>
+        <% if (winner === selfid) { %>
+            <h1>You have won the last auction!</h1>
+        <% } else if (winner.length > 1) {%>
+            <h1>You have lost the last auction!</h1>
+        <% } %>
         <input id="gameId" type="hidden" value= <%= gameid %> >
         <input id="selfId" type="hidden" value= <%= selfid %> >
     </div>

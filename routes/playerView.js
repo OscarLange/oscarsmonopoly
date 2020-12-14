@@ -32,7 +32,8 @@ router.get('/:id', function(req, res, next) {
                     otherPlayers: others,
                     gameid: player.gameid,
                     selfid: req.params.id,
-                    auction: game.auction
+                    auction: game.auction,
+                    winner: game.winner
                 });
             });
         });
